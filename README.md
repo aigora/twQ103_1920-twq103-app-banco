@@ -1,8 +1,8 @@
 # Aplicacion de banco
 
-Nuestro poyecto será una aplicación de un banco que contará con varias funciones a disposicion de cualquier cliente que este en posesión de un usuario.
-En un primer momento, el programa ofrece la opción de cargar o crear un usuario. Para crear un usuario se realizará un registro estándar con una serie de condiciones en los campos requeridos. Para cargar usuario, buscará en los ficheros y le perimitirá acceder al resto de funciones del programa.
-Con está aplicación podrá revisar su saldo, movimientos o incluso realizar una transferencia de una forma rápida y sencilla.
+Nuestro proyecto consiste en una aplicación de un banco que contara con multiples funciones a disposición de todo aquel que cuente con un usuario en nuestra App. 
+En un primer momento, el programa ofrece la opción de registro o inicio de sesión.  Para crear un usuario se realizará un registro estándar con una serie de condiciones en los campos requeridos. Para iniciar sesión, buscará en los ficheros y le perimitirá acceder al resto de funciones del programa.
+Con esta aplicación, los clientes podrán comprobar el saldo actual, realizar transferencias o pedir un préstamo de una rapida y sencilla.
 
 
 ## Integrantes del equipo
