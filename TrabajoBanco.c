@@ -16,7 +16,7 @@ struct TAcliente{
 
 
 int menu();
-int Numpin(int n); // funcion para comprobar el tamaño del PIN y del DNI
+int Contar(int n); // funcion para comprobar el tamaño del PIN y del DNI
 
 
 int main(){
@@ -30,7 +30,7 @@ int main(){
 	int contador=0, i=0, n=0, j=0; // numero de clientes
 	char user[50]; 
 	int pass;
-	int correct=0; // comprobar pin y dni
+	int correct=0, dni0=0, t, f; // comprobar pin y dni
 	float dinerosum = 0;
 	int Uexistente=1;
 	float dineroT=0;
@@ -88,15 +88,16 @@ int main(){
 					return -1;
 				}
 				
-				for(n=0; n<contador; n++){
-					while(fscanf(pfichero, "%s %d %f", cuenta[n].usuario, &cuenta[n].pin, &cuenta[n].dinero) != EOF){
-						Uexistente=strcmp(cuenta[n].usuario, cuenta[j].usuario);
-						if(Uexistente==0){
-							printf("El nombre de usuario ya existe\n");
-							return 0;
-						}
+				n=0;
+				while(fscanf(pfichero, "%s %d %f", cuenta[n].usuario, &cuenta[n].pin, &cuenta[n].dinero) != EOF){
+					Uexistente=strcmp(cuenta[n].usuario, cuenta[j].usuario);
+					if(Uexistente==0){
+						printf("El nombre de usuario ya existe\n");
+						return 0;
 					}
+					n++;
 				}
+	
 			}while(Uexistente==0);
 			
 			printf("Teclee su NOMBRE:\n");
@@ -109,7 +110,7 @@ int main(){
 				printf("Teclee su DNI:\n");
 				scanf("%d%c", &cuenta[contador].Ndni, &cuenta[contador].Ldni);
 				
-				correct=Numpin(cuenta[contador].Ndni);
+				correct=Contar(cuenta[contador].Ndni);
 				
 				if(correct!=8){
 					printf("Su codigo DNI ha sido mal introducido.\n");
@@ -123,7 +124,7 @@ int main(){
 				printf("Teclee una PIN de 4 digitos:\n");
 				scanf("%d", &cuenta[contador].pin);
 				
-				correct=Numpin(cuenta[contador].pin);
+				correct=Contar(cuenta[contador].pin);
 				
 				if(correct!=4){
 					printf("PIN no valido.\n");
@@ -147,7 +148,7 @@ int main(){
 			}
 			n=0;
 			while(n<contador){
-				fprintf(pfichero,"%s %d %f\n", cuenta[n].usuario, cuenta[n].pin, cuenta[n].dinero); 
+				fprintf(pfichero,"%s %d %.2f\n", cuenta[n].usuario, cuenta[n].pin, cuenta[n].dinero); 
 				n++;
 			}	
 			fclose(pfichero);
@@ -242,9 +243,17 @@ int main(){
 					return -1;
 				}
 				
+				printf("Estos son los usuarios del banco\n");
+				i=0;		
+				while(fscanf(pfichero, "%s %d %f", cuenta[i].usuario, &cuenta[i].pin, &cuenta[i].dinero) != EOF){
+					printf("%s\n", cuenta[i].usuario);
+					i++;
+				}
+					
 				do{
 					fflush(stdin);
-					printf("Introduzca el nombre de USUARIO al que desea realizar una tranferencia:\n");
+					
+					printf("Introduzca el nombre de USUARIO al que desea realizar una tranferencia:\n");			
 					gets(transferencia);
 					for(k=0; k<contador; k++){
 						encontradoT=strcmp(transferencia, cuenta[k].usuario);
@@ -280,7 +289,7 @@ int main(){
 			    printf("\n");
 				printf("Estamos realizando su tranferencia...\n");
 				Sleep(1000);
-				printf("Su saldo actual es: %f\n", cuenta[n].dinero);
+				printf("Su saldo actual es: %.2f\n", cuenta[n].dinero);
 				Sleep(1000);
 				
 				system("cls");
@@ -292,7 +301,7 @@ int main(){
 		        cuenta[n].dinero += dinerosum;
 		        printf("Un momento por favor\n");
 				Sleep(1000);
-		        printf("Su saldo actual es: %f\n", cuenta[n].dinero);
+		        printf("Su saldo actual es: %.2f\n", cuenta[n].dinero);
 		        Sleep(1000);
 			    system("cls");
 				break;
@@ -365,7 +374,7 @@ int main(){
 	
 	n=0;
 	while(n<contador){
-		fprintf(pfichero,"%s %d %f\n", cuenta[n].usuario, cuenta[n].pin, cuenta[n].dinero);
+		fprintf(pfichero,"%s %d %.2f\n", cuenta[n].usuario, cuenta[n].pin, cuenta[n].dinero);
 		n++; 
 	}
 	
@@ -373,14 +382,14 @@ int main(){
 }
 
 
-int Numpin(int n){
+int Contar(int n){
 	int pin2=0;
 	
 	while(n>0){
 		pin2++;
-		n=n/10;
+		n=n/10;	
 	}
-	
+
 	return pin2;
 }
 
