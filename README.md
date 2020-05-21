@@ -15,14 +15,15 @@ Sonia Somolinos Bravo (VivaAsturiaas)
 
 ## Objetivos del trabajo
 
--Realizar un registro de los clientes.  
--Iniciar sesión de los usuarios.
--Ver el saldo actual.
--Realizar una transferencia a cualquiera de los usuarios de la aplicación.
--Pedir un préstamo al banco.  
--Cambiar el PIN. 
--Realizar una actualización rápida de cualquier cambio.  
--Salir del programa si el usuario lo desea.
+1. Realizar un registro de los clientes.
+2. Iniciar sesión de los clientes.
+3. Ver el saldo actual.
+4. Realizar una transferencia a cualquiera de los usuarios de la aplicación.
+5. Pedir un préstamo al banco.
+6. Cambiar el PIN.
+7. Realizar una actualización rápida de cualquier cambio.
+8. Salir del programa si el usuario lo desea.
+
 
 
 
