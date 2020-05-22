@@ -16,7 +16,8 @@ struct TAcliente{
 
 
 int menu();
-int Contar(int n); // funcion para comprobar el tamaño del PIN y del DNI
+int Contar(int n); // funcion para comprobar el tamaÃ±o del PIN y del DNI
+void banner();
 
 
 int main(){
@@ -42,21 +43,14 @@ int main(){
 	
 	
 	system("color 6");
-    printf("\n");
-    printf("\n"); 
-    printf("\n");
-    printf("\n");   
-	printf("------------------------------------------------------------------------------------------------------------------------\n");
-	printf("                                                      BANABANK\n");	
-	printf("------------------------------------------------------------------------------------------------------------------------\n");	
-	Sleep(3000);
-	system("cls");
+    banner();
+    
 	
-	// Miramos cuantos usuarios están registrados
+	// Miramos cuantos usuarios estÃ¡n registrados
 	pfichero = fopen("clientes.txt", "r");
 	
 	if(pfichero == NULL){
-		printf("No se ha podido abrir el fichero\n");
+		printf("     No se ha podido abrir el fichero\n");
 		return -1;
 	}
 				
@@ -65,26 +59,25 @@ int main(){
 	}
 	fclose(pfichero);
 	
-    printf("\n");
-    printf("\n"); 
-    printf("\n");
     printf("\n");  
 	printf("                                                      1.Registro\n");
 	printf("                                                      2.Iniciar sesion\n");
 	scanf("%d", &opcionusuario);
 	
 	system("cls");
+	banner();
+	printf("\n");
 	    
 	switch(opcionusuario){
 		case 1:			
 			do{
 				fflush(stdin);
-				printf("Teclee su nombre de USUARIO:\n");
+				printf("     Teclee su nombre de USUARIO:\n");
 				gets(cuenta[contador].usuario);
 				j=contador;
 				pfichero = fopen("clientes.txt", "r");
 				if(pfichero == NULL){
-					printf("No se ha podido abrir el fichero\n");
+					printf("     No se ha podido abrir el fichero\n");
 					return -1;
 				}
 				
@@ -92,7 +85,7 @@ int main(){
 				while(fscanf(pfichero, "%s %d %f", cuenta[n].usuario, &cuenta[n].pin, &cuenta[n].dinero) != EOF){
 					Uexistente=strcmp(cuenta[n].usuario, cuenta[j].usuario);
 					if(Uexistente==0){
-						printf("El nombre de usuario ya existe\n");
+						printf("     El nombre de usuario ya existe\n");
 						return 0;
 					}
 					n++;
@@ -100,20 +93,20 @@ int main(){
 	
 			}while(Uexistente==0);
 			
-			printf("Teclee su NOMBRE:\n");
+			printf("     Teclee su NOMBRE:\n");
 			gets(cuenta[contador].nombre);
-			printf("Teclee sus APELLIDOS:\n");
+			printf("     Teclee sus APELLIDOS:\n");
 			gets(cuenta[contador].apellidos);
 			
 			do{
 				fflush(stdin);
-				printf("Teclee su DNI:\n");
+				printf("     Teclee su DNI:\n");
 				scanf("%d%c", &cuenta[contador].Ndni, &cuenta[contador].Ldni);
 				
 				correct=Contar(cuenta[contador].Ndni);
 				
 				if(correct!=8){
-					printf("Su codigo DNI ha sido mal introducido.\n");
+					printf("     Su codigo DNI ha sido mal introducido.\n");
 				}else if(cuenta[contador].Ldni>'Z' || cuenta[contador].Ldni<'A'){
 					printf("La letra del dni ha sido mal introducida.\n");
 				}
@@ -121,29 +114,30 @@ int main(){
 			}while(correct!=8 || cuenta[contador].Ldni>'Z' || cuenta[contador].Ldni<'A');
 			
 			do{
-				printf("Teclee una PIN de 4 digitos:\n");
+				printf("     Teclee una PIN de 4 digitos:\n");
 				scanf("%d", &cuenta[contador].pin);
 				
 				correct=Contar(cuenta[contador].pin);
 				
 				if(correct!=4){
-					printf("PIN no valido.\n");
+					printf("     PIN no valido.\n");
 				}
 				
 			}while(correct!=4);
 			
-			printf("Usuario registrado con exito!\n");
+			printf("     Usuario registrado con exito!\n");
 			Sleep(1000);
 			system("cls");
 			
-			printf("Introduzca cuanto dinero desea tener en la cuenta: \n");
+			banner();
+			printf("     Introduzca cuanto dinero desea tener en la cuenta: \n");
 			scanf("%f", &cuenta[contador].dinero);
 			
 			contador++;
 			
 			pfichero = fopen("clientes.txt","w");
 			if(pfichero==NULL){
-				printf("Error al abrir el fichero\n");
+				printf("     Error al abrir el fichero\n");
 				return -1;	
 			}
 			n=0;
@@ -158,15 +152,15 @@ int main(){
 		case 2:
 			pfichero = fopen("clientes.txt", "r");
 			if(pfichero == NULL){
-				printf("No se ha podido abrir el fichero\n");
+				printf("     No se ha podido abrir el fichero\n");
 				return -1;
 			}
 			
 			fflush(stdin);
 			do{
-				printf("Introduzca el nombre de USUARIO:\n");
+				printf("     Introduzca el nombre de USUARIO:\n");
 				gets(user);
-				printf("Buscanco usuario...\n");
+				printf("     Buscanco usuario...\n");
 				Sleep(1000);
 				for(n=0; n<contador; n++){
 					encontradoU=strcmp(user, cuenta[n].usuario);
@@ -176,17 +170,17 @@ int main(){
 				if(encontradoU==0){
 					intentos=0;
 					do{
-						printf("Introduzca el PIN:\n");
+						printf("     Introduzca el PIN:\n");
 						scanf("%d", &pass);
 						
 						if(pass==cuenta[n].pin){
-							printf("Inicio de sesion correcto!");
+							printf("     Inicio de sesion correcto!");
 							Sleep(2000);
 							system("cls");
 							break;
 						} else{							
 							encontradoC=1;
-							printf("PIN incorrecto\n");
+							printf("     PIN incorrecto\n");
 							intentos++;
 							if(intentos==3){
 								return 0;
@@ -194,11 +188,11 @@ int main(){
 						}
 					}while(encontradoC==1);				
 				} else{
-					printf("Usuario no existe\n");
+					printf("     Usuario no existe\n");
 					Sleep(1000);
 					intentos++;
 					if(intentos==3){
-						printf("Pruebe a registrarse\n");
+						printf("     Pruebe a registrarse\n");
 						Sleep(1000);
 						return 0;
 					}
@@ -210,18 +204,13 @@ int main(){
 			break;
 		
 		default: 
-    		printf("Opcion no valida\n");
+    		printf("     Opcion no valida\n");
     		break;
 	}
 
 	system("cls");
 	printf("\n");
-	printf("\n"); 
-	printf("\n");
-	printf("\n");
-	printf("------------------------------------------------------------------------------------------------------------------------\n");
-	printf("                                                      BANABANK\n");	
-	printf("------------------------------------------------------------------------------------------------------------------------\n");	
+	banner();	
 	printf("                                                 BIENVENID@ AL BANCO %s\n", cuenta[n].usuario);
 	printf("\n");
 	Sleep(2000);
@@ -232,18 +221,20 @@ int main(){
 		
 		switch(opcionmenu){
 			case 1:
-				printf("Su saldo actual es: %f\n", cuenta[n].dinero);
+				printf("     Saldo:\n");
+				printf("     Su saldo actual es: %f\n", cuenta[n].dinero);
 				Sleep(1000);
 				system("cls");
 				break;
 			case 2:
+				printf("     Transferencias:\n");
 				pfichero = fopen("clientes.txt", "r");
 				if(pfichero == NULL){
-					printf("No se ha podido abrir el fichero\n");
+					printf("     No se ha podido abrir el fichero\n");
 					return -1;
 				}
 				
-				printf("Estos son los usuarios del banco\n");
+				printf("     Estos son los usuarios del banco\n");
 				i=0;		
 				while(fscanf(pfichero, "%s %d %f", cuenta[i].usuario, &cuenta[i].pin, &cuenta[i].dinero) != EOF){
 					printf("%s\n", cuenta[i].usuario);
@@ -253,7 +244,7 @@ int main(){
 				do{
 					fflush(stdin);
 					
-					printf("Introduzca el nombre de USUARIO al que desea realizar una tranferencia:\n");			
+					printf("     Introduzca el nombre de USUARIO al que desea realizar una tranferencia:\n");			
 					gets(transferencia);
 					for(k=0; k<contador; k++){
 						encontradoT=strcmp(transferencia, cuenta[k].usuario);
@@ -262,16 +253,16 @@ int main(){
 					}
 					if(encontradoT==0){
 						do{
-							printf("Introduzca la cantidad de dinero que desea ingresar a %s:\n", cuenta[k].usuario);
+							printf("     Introduzca la cantidad de dinero que desea ingresar a %s:\n", cuenta[k].usuario);
 							scanf("%f", &dineroT);	
 							if(dineroT>cuenta[n].dinero){
-								printf("No dispone de tanto dinero en la cuenta, no se puede realizar la tranferencia\n");
+								printf("     No dispone de tanto dinero en la cuenta, no se puede realizar la tranferencia\n");
 							}else{
 								v=1;
 							}
 						}while(dineroT>cuenta[n].dinero);			
 					} else{
-						printf("Usuario no existe\n");
+						printf("     Usuario no existe\n");
 					}	
 				}while(encontradoT!=0);
 				
@@ -287,55 +278,56 @@ int main(){
 			    printf("\n"); 
 			    printf("\n");
 			    printf("\n");
-				printf("Estamos realizando su tranferencia...\n");
+				printf("     Estamos realizando su tranferencia...\n");
 				Sleep(1000);
-				printf("Su saldo actual es: %.2f\n", cuenta[n].dinero);
+				printf("     Su saldo actual es: %.2f\n", cuenta[n].dinero);
 				Sleep(1000);
 				
 				system("cls");
 				break;
 			case 3:
-				printf("Prestamos:\n");
-		        printf("Introduzca la cantidad de dinero que desea recibir en su cuenta: \n");
+				printf("     Prestamos:\n");
+		        printf("     Introduzca la cantidad de dinero que desea recibir en su cuenta: \n");
 		        scanf("%f", &dinerosum);
 		        cuenta[n].dinero += dinerosum;
-		        printf("Un momento por favor\n");
+		        printf("     Un momento por favor\n");
 				Sleep(1000);
-		        printf("Su saldo actual es: %.2f\n", cuenta[n].dinero);
+		        printf("     Su saldo actual es: %.2f\n", cuenta[n].dinero);
 		        Sleep(1000);
 			    system("cls");
 				break;
 			case 4:
+	            printf("     Cambio PIN:\n");
 				intentos=0;
 				do{
-					printf("Introduzca su PIN actual\n");
+					printf("     Introduzca su PIN actual\n");
 					scanf("%d", &CambioPin);
 					
 					CPin=cuenta[n].pin;
 					
 					if(CambioPin==cuenta[n].pin){
-						printf("Introduzca su nuevo PIN\n");
+						printf("    Introduzca su nuevo PIN\n");
 						scanf("%d", &PinNuevo);
-						printf("Vuelva a introducir su PIN\n");
+						printf("    Vuelva a introducir su PIN\n");
 						scanf("%d", &NuevoPin);
 						if(PinNuevo==NuevoPin){
-							printf("Su PIN ha sido correctamente actualizado\n");
+							printf("     Su PIN ha sido correctamente actualizado\n");
 							cuenta[n].pin=PinNuevo;
 							Sleep(1000);
 							break;
 						} else{
-							printf("No coinciden los codigos introducidos\n");
-							printf("Vuelva a empezar el proceso\n");
+							printf("     No coinciden los codigos introducidos\n");
+							printf("     Vuelva a empezar el proceso\n");
 							Sleep(1000);
 							system("cls");
 						}
 					}else{
-						printf("PIN incorrecto\n");
+						printf("     PIN incorrecto\n");
 						intentos++;
 						Sleep(1000);
 						if(intentos==3){
-							printf("Usted ha sobrepasado el numero de intentos\n");
-							printf("Por la seguridad de nuestros usuarios, esta sesion se cerrara automaticamente\n");
+							printf("     Usted ha sobrepasado el numero de intentos\n");
+							printf("     Por la seguridad de nuestros usuarios, esta sesion se cerrara automaticamente\n");
 							Sleep(3000);
 							return 0;
 						}
@@ -345,10 +337,10 @@ int main(){
 				system("cls");
 				break;
 			case 5:
-				
+				printf("     Cerrando sesion...\n");
 				break;
 			default:
-				printf("Opcion no valida\n");
+				printf("     Opcion no valida\n");
 				Sleep(1000);
 			    system("cls");
 			}
@@ -356,9 +348,7 @@ int main(){
 	}while(opcionmenu!=5);
 	
 	system("cls");
-	printf("\n");
-    printf("\n"); 
-    printf("\n");
+	banner();
     printf("\n"); 
 	printf("------------------------------------------------------------------------------------------------------------------------\n");
 	printf("                                                  HASTA PRONTO %s \n", cuenta[n].usuario);
@@ -397,9 +387,7 @@ int Contar(int n){
 int menu(){
 	int opcion;
 	
-	printf("\n");
-    printf("\n"); 
-    printf("\n");
+	banner();
     printf("\n");  
 	printf("                                                      Introduzca una opcion\n");
 	printf("\n");
@@ -411,5 +399,17 @@ int menu(){
 	fflush(stdin);
 	scanf("%i", &opcion);
 	return opcion;
+} 
+void banner(){
+    printf("\n");
+    printf("\n"); 
+    printf("\n");
+    printf("\n");   
+	printf("------------------------------------------------------------------------------------------------------------------------\n");
+	printf("                                                      BANABANK\n");	
+	printf("------------------------------------------------------------------------------------------------------------------------\n");
+	printf("\n");   
+	printf("------------------------------------------------------------------------------------------------------------------------\n");
+
 }
 
